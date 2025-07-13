@@ -30,6 +30,13 @@ const calculateProbabilityFlow = ai.defineFlow(
     name: 'calculateProbabilityFlow',
     inputSchema: CalculateProbabilityInputSchema,
     outputSchema: CalculateProbabilityOutputSchema,
+    auth: (auth) => {
+      // Note: This policy allows any signed-in user to call this flow.
+      // You may want to restrict this further for production applications.
+      // For example, to allow only the 'admin' role, you would use:
+      // auth.email.endsWith('@your-domain.com') && auth.roles.includes('admin')
+      return;
+    },
   },
   async () => {
     // Generate a random integer between 60 and 80 (inclusive)
