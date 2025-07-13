@@ -22,7 +22,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { calculateProbability } from "@/ai/flows/calculate-probability";
 import { EggIcon } from "@/components/egg-icon";
 import { CrackedEggIcon } from "@/components/cracked-egg-icon";
 import { Confetti } from "@/components/confetti";
@@ -62,7 +61,7 @@ export function Roulette() {
 
   const { toast } = useToast();
 
-  const handleRoleSelect = async (role: Role) => {
+  const handleRoleSelect = (role: Role) => {
     if (!state.username) {
       toast({
         title: "Whoops!",
@@ -73,20 +72,12 @@ export function Roulette() {
     }
     setState(prev => ({ ...prev, error: null, probability: null, showResult: false, selectedRole: role, isLoading: true }));
 
-    try {
-      const result = await calculateProbability({ twitterUsername: state.username, role });
-      setTimeout(() => {
-        setState(prev => ({ ...prev, probability: result.probability, isLoading: false, showResult: true }));
-      }, 2500); // 2.5s for rolling animation
-    } catch (e) {
-      console.error(e);
-      toast({
-        title: "Oh no!",
-        description: "The crystal ball is cloudy. Could not calculate probability.",
-        variant: "destructive",
-      });
-      setState(prev => ({ ...prev, isLoading: false }));
-    }
+    // Simple client-side random number generation
+    const probability = Math.floor(Math.random() * (80 - 60 + 1)) + 60;
+
+    setTimeout(() => {
+      setState(prev => ({ ...prev, probability: probability, isLoading: false, showResult: true }));
+    }, 2500); // 2.5s for rolling animation
   };
 
   const handleReset = () => {
