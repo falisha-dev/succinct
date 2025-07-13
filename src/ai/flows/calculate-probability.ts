@@ -17,7 +17,7 @@ const CalculateProbabilityInputSchema = z.object({
 export type CalculateProbabilityInput = z.infer<typeof CalculateProbabilityInputSchema>;
 
 const CalculateProbabilityOutputSchema = z.object({
-  probability: z.number().min(70).max(90).describe('The probability (as a percentage between 70 and 90) of the user getting the selected role.'),
+  probability: z.number().min(60).max(80).describe('The probability (as a percentage between 60 and 80) of the user getting the selected role.'),
 });
 export type CalculateProbabilityOutput = z.infer<typeof CalculateProbabilityOutputSchema>;
 
@@ -32,8 +32,8 @@ const calculateProbabilityFlow = ai.defineFlow(
     outputSchema: CalculateProbabilityOutputSchema,
   },
   async () => {
-    // Generate a random integer between 70 and 90 (inclusive)
-    const probability = Math.floor(Math.random() * (90 - 70 + 1)) + 70;
+    // Generate a random integer between 60 and 80 (inclusive)
+    const probability = Math.floor(Math.random() * (80 - 60 + 1)) + 60;
     return { probability };
   }
 );
