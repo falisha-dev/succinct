@@ -168,38 +168,38 @@ export function Roulette() {
         </CardContent>
       </Card>
       
-      <AlertDialog open={showResult} onOpenChange={(open) => !open && handleReset()}>
-        <AlertDialogContent className="overflow-hidden p-0">
-          <div className="relative text-center">
-            <Confetti />
-             <div className="p-8 pt-12">
-                <CrackedEggIcon className="w-36 h-36 text-primary mx-auto" />
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-accent-foreground drop-shadow-lg">
-                  <p className="text-6xl font-bold font-headline">
-                    {probability}%
-                  </p>
-                  <p className="text-xs font-semibold uppercase tracking-widest">Probability</p>
+      {isClient && (
+        <AlertDialog open={showResult} onOpenChange={(open) => !open && handleReset()}>
+          <AlertDialogContent className="overflow-hidden p-0">
+            <div className="relative text-center">
+              <Confetti />
+              <div className="p-8 pt-12">
+                  <CrackedEggIcon className="w-36 h-36 text-primary mx-auto" />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-accent-foreground drop-shadow-lg">
+                    <p className="text-6xl font-bold font-headline">
+                      {probability}%
+                    </p>
+                    <p className="text-xs font-semibold uppercase tracking-widest">Probability</p>
+                  </div>
                 </div>
-              </div>
-          </div>
-          <AlertDialogHeader className="px-6 text-center">
-            <AlertDialogTitle className="text-2xl">Congratulations, @{username}!</AlertDialogTitle>
-            <AlertDialogDescription>
-              You have a {probability}% chance for the "{selectedRole}" role.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter className="bg-muted/50 p-6 gap-4 sm:gap-2">
-            {isClient && (
-              <Button variant="outline" onClick={handleShare}>
-                <Share2 /> Share on Twitter
-              </Button>
-            )}
-            <AlertDialogAction asChild>
-              <Button onClick={handleReset}>Try Again</Button>
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+            </div>
+            <AlertDialogHeader className="px-6 text-center">
+              <AlertDialogTitle className="text-2xl">Congratulations, @{username}!</AlertDialogTitle>
+              <AlertDialogDescription>
+                You have a {probability}% chance for the "{selectedRole}" role.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter className="bg-muted/50 p-6 gap-4 sm:gap-2">
+                <Button variant="outline" onClick={handleShare}>
+                  <Share2 /> Share on Twitter
+                </Button>
+              <AlertDialogAction asChild>
+                <Button onClick={handleReset}>Try Again</Button>
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
     </>
   );
 }
