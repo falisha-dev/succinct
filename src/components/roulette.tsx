@@ -116,7 +116,7 @@ export function Roulette() {
         <div className="relative w-full h-48 flex items-center justify-center overflow-hidden rounded-lg bg-primary/5 p-4">
           {isLoading && (
             <div className="absolute text-center">
-              <EggIcon className="w-28 h-28 text-primary/50 animate-roll" />
+              <EggIcon className="w-28 h-28 animate-roll" />
               <p className="text-center mt-4 text-muted-foreground animate-pulse font-medium">
                 Calculating your fate...
               </p>
@@ -138,7 +138,7 @@ export function Roulette() {
           )}
           {!isLoading && !showResult && (
             <div className="text-center text-muted-foreground">
-              <EggIcon className="w-28 h-28 text-primary/20 mx-auto" />
+              <EggIcon className="w-28 h-28 opacity-50 mx-auto" />
               <p className="mt-4 font-medium">Select a rollup to see your chances!</p>
             </div>
           )}
