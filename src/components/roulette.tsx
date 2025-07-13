@@ -27,8 +27,9 @@ import { CrackedEggIcon } from "@/components/cracked-egg-icon";
 import { Confetti } from "@/components/confetti";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { User, Dices, Share2 } from "lucide-react";
+import { User, Share2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { LogoIcon } from "./logo-icon";
 
 type Role = "Proofer Promotion Rollup" | "Prove Of Love Promotion Rollup";
 const ROLES: Role[] = ["Proofer Promotion Rollup", "Prove Of Love Promotion Rollup"];
@@ -51,6 +52,13 @@ export function Roulette() {
     selectedRole: Role | null;
     showResult: boolean;
   }>(INITIAL_STATE);
+  
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
 
   const { toast } = useToast();
 
@@ -97,7 +105,7 @@ export function Roulette() {
     <>
       <Card className="w-full max-w-md mx-auto shadow-2xl shadow-primary/10 border-primary/20">
         <CardHeader className="text-center">
-          <Dices className="mx-auto h-12 w-12 text-primary" />
+          <LogoIcon className="mx-auto h-16 w-16" />
           <CardTitle className="text-3xl font-bold font-headline text-accent">
             Rollup Roulette
           </CardTitle>
@@ -171,9 +179,11 @@ export function Roulette() {
         </CardContent>
          {showResult && (
           <CardFooter className="flex-col gap-4">
-            <Button onClick={handleShare} className="w-full">
-              <Share2 /> Share on Twitter
-            </Button>
+            {isClient && (
+              <Button onClick={handleShare} className="w-full">
+                <Share2 /> Share on Twitter
+              </Button>
+            )}
             <Button onClick={handleReset} variant="outline" className="w-full">
               Try Again
             </Button>
@@ -181,36 +191,38 @@ export function Roulette() {
         )}
       </Card>
       
-      <AlertDialog open={showResult} onOpenChange={(open) => !open && handleReset()}>
-          <AlertDialogContent className="overflow-hidden p-0">
-            <div className="relative text-center">
-              <Confetti />
-              <div className="p-8 pt-12">
-                  <CrackedEggIcon className="w-36 h-36 text-primary mx-auto" />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-accent-foreground drop-shadow-lg">
-                    <p className="text-6xl font-bold font-headline">
-                      {probability}%
-                    </p>
-                    <p className="text-xs font-semibold uppercase tracking-widest">Probability</p>
+      {isClient && (
+        <AlertDialog open={showResult} onOpenChange={(open) => !open && handleReset()}>
+            <AlertDialogContent className="overflow-hidden p-0">
+              <div className="relative text-center">
+                <Confetti />
+                <div className="p-8 pt-12">
+                    <CrackedEggIcon className="w-36 h-36 text-primary mx-auto" />
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-accent-foreground drop-shadow-lg">
+                      <p className="text-6xl font-bold font-headline">
+                        {probability}%
+                      </p>
+                      <p className="text-xs font-semibold uppercase tracking-widest">Probability</p>
+                    </div>
                   </div>
-                </div>
-            </div>
-            <AlertDialogHeader className="px-6 text-center">
-              <AlertDialogTitle className="text-2xl">Congratulations, @{username}!</AlertDialogTitle>
-              <AlertDialogDescription>
-                You have a {probability}% chance for the "{selectedRole}" role.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter className="bg-muted/50 p-6 gap-4 sm:gap-2">
-                <Button variant="outline" onClick={handleShare}>
-                  <Share2 /> Share on Twitter
-                </Button>
-              <AlertDialogAction asChild>
-                <Button onClick={handleReset}>Try Again</Button>
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+              </div>
+              <AlertDialogHeader className="px-6 text-center">
+                <AlertDialogTitle className="text-2xl">Congratulations, @{username}!</AlertDialogTitle>
+                <AlertDialogDescription>
+                  You have a {probability}% chance for the "{selectedRole}" role.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter className="bg-muted/50 p-6 gap-4 sm:gap-2">
+                  <Button variant="outline" onClick={handleShare}>
+                    <Share2 /> Share on Twitter
+                  </Button>
+                <AlertDialogAction asChild>
+                  <Button onClick={handleReset}>Try Again</Button>
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        )}
     </>
   );
 }
