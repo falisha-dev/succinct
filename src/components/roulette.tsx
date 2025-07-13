@@ -106,7 +106,7 @@ export function Roulette() {
       <Card className="w-full max-w-md mx-auto shadow-2xl shadow-primary/10 border-primary/20">
         <CardHeader className="text-center">
           <Image
-            src="/assets/succ-.png"
+            src="/assets/succ.jpg"
             alt="Logo"
             width={50}
             height={50}
@@ -183,7 +183,7 @@ export function Roulette() {
               ))}
             </div>
         </CardContent>
-         {showResult && isClient && (
+         {isClient && showResult && (
           <CardFooter className="flex-col gap-4">
               <Button onClick={handleShare} className="w-full">
                 <Share2 /> Share on Twitter
