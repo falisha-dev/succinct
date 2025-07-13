@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -51,6 +51,11 @@ export function Roulette() {
     selectedRole: Role | null;
     showResult: boolean;
   }>(INITIAL_STATE);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const { toast } = useToast();
 
@@ -184,9 +189,11 @@ export function Roulette() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="bg-muted/50 p-6 gap-4 sm:gap-2">
-            <Button variant="outline" onClick={handleShare}>
-              <Share2 /> Share on Twitter
-            </Button>
+            {isClient && (
+              <Button variant="outline" onClick={handleShare}>
+                <Share2 /> Share on Twitter
+              </Button>
+            )}
             <AlertDialogAction asChild>
               <Button onClick={handleReset}>Try Again</Button>
             </AlertDialogAction>
