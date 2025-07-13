@@ -51,11 +51,6 @@ export function Roulette() {
     selectedRole: Role | null;
     showResult: boolean;
   }>(INITIAL_STATE);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const { toast } = useToast();
 
@@ -144,10 +139,18 @@ export function Roulette() {
               </div>
             )}
             
-            {!isLoading && (
+            {!isLoading && !showResult && (
               <div className="text-center text-muted-foreground">
                 <EggIcon className="w-28 h-28 opacity-50 mx-auto" />
                 <p className="mt-4 font-medium">Select a rollup to see your chances!</p>
+              </div>
+            )}
+
+            {showResult && (
+              <div className="text-center text-muted-foreground animate-fade-in-pop">
+                 <CrackedEggIcon className="w-32 h-32 text-primary mx-auto" />
+                 <p className="text-2xl font-bold mt-2">{probability}%</p>
+                 <p className="font-medium">Chance for "{selectedRole}"</p>
               </div>
             )}
           </div>
@@ -166,10 +169,19 @@ export function Roulette() {
               ))}
             </div>
         </CardContent>
+         {showResult && (
+          <CardFooter className="flex-col gap-4">
+            <Button onClick={handleShare} className="w-full">
+              <Share2 /> Share on Twitter
+            </Button>
+            <Button onClick={handleReset} variant="outline" className="w-full">
+              Try Again
+            </Button>
+          </CardFooter>
+        )}
       </Card>
       
-      {isClient && (
-        <AlertDialog open={showResult} onOpenChange={(open) => !open && handleReset()}>
+      <AlertDialog open={showResult} onOpenChange={(open) => !open && handleReset()}>
           <AlertDialogContent className="overflow-hidden p-0">
             <div className="relative text-center">
               <Confetti />
@@ -199,7 +211,6 @@ export function Roulette() {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-      )}
     </>
   );
 }
