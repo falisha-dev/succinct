@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -29,7 +30,6 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { User, Share2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { LogoIcon } from "./logo-icon";
 
 type Role = "Proofer Promotion Rollup" | "Prove Of Love Promotion Rollup";
 const ROLES: Role[] = ["Proofer Promotion Rollup", "Prove Of Love Promotion Rollup"];
@@ -105,7 +105,14 @@ export function Roulette() {
     <>
       <Card className="w-full max-w-md mx-auto shadow-2xl shadow-primary/10 border-primary/20">
         <CardHeader className="text-center">
-          <LogoIcon className="mx-auto h-16 w-16" />
+          <Image
+            src="https://placehold.co/100x100.png"
+            alt="Logo"
+            width={100}
+            height={100}
+            className="mx-auto rounded-full"
+            data-ai-hint="logo abstract"
+          />
           <CardTitle className="text-3xl font-bold font-headline text-accent">
             Rollup Roulette
           </CardTitle>
@@ -177,13 +184,11 @@ export function Roulette() {
               ))}
             </div>
         </CardContent>
-         {showResult && (
+         {showResult && isClient && (
           <CardFooter className="flex-col gap-4">
-            {isClient && (
               <Button onClick={handleShare} className="w-full">
                 <Share2 /> Share on Twitter
               </Button>
-            )}
             <Button onClick={handleReset} variant="outline" className="w-full">
               Try Again
             </Button>
