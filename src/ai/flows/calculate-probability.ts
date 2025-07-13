@@ -25,16 +25,6 @@ export async function calculateProbability(input: CalculateProbabilityInput): Pr
   return calculateProbabilityFlow(input);
 }
 
-const prompt = ai.definePrompt({
-  name: 'calculateProbabilityPrompt',
-  input: {schema: CalculateProbabilityInputSchema},
-  output: {schema: CalculateProbabilityOutputSchema},
-  prompt: `You are a probability calculation AI. You will take in the twitter username of a user, and the role they are applying for, and return a number between 70 and 90 representing the probability of them getting that role. You should add a bit of randomness in your answer.
-
-Twitter Username: {{{twitterUsername}}}
-Role: {{{role}}}`,
-});
-
 const calculateProbabilityFlow = ai.defineFlow(
   {
     name: 'calculateProbabilityFlow',
@@ -42,7 +32,8 @@ const calculateProbabilityFlow = ai.defineFlow(
     outputSchema: CalculateProbabilityOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
-    return output!;
+    // Generate a random integer between 70 and 90.
+    const probability = Math.floor(Math.random() * (90 - 70 + 1)) + 70;
+    return { probability };
   }
 );
