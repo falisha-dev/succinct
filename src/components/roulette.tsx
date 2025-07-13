@@ -106,12 +106,11 @@ export function Roulette() {
       <Card className="w-full max-w-md mx-auto shadow-2xl shadow-primary/10 border-primary/20">
         <CardHeader className="text-center">
           <Image
-            src="https://placehold.co/100x100.png"
+            src="/assets/succ.jpg"
             alt="Logo"
             width={100}
             height={100}
             className="mx-auto rounded-full"
-            data-ai-hint="logo abstract"
           />
           <CardTitle className="text-3xl font-bold font-headline text-accent">
             Rollup Roulette
