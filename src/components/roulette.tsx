@@ -106,7 +106,7 @@ export function Roulette() {
       <Card className="w-full max-w-md mx-auto shadow-2xl shadow-primary/10 border-primary/20">
         <CardHeader className="text-center">
           <Image
-            src="/assets/succ.jpg"
+            src="/assets/succ-.png"
             alt="Logo"
             width={50}
             height={50}
