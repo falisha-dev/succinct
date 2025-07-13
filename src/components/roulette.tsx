@@ -31,8 +31,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { User, Share2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-type Role = "Proofer Promotion Rollup" | "Prove Of Love Promotion Rollup";
-const ROLES: Role[] = ["Proofer Promotion Rollup", "Prove Of Love Promotion Rollup"];
+type Role = "Proofer Promotion" | "Prove Of Love Promotion";
+const ROLES: Role[] = ["Proofer Promotion", "Prove Of Love Promotion"];
 
 const INITIAL_STATE = {
   username: "",
@@ -106,11 +106,11 @@ export function Roulette() {
       <Card className="w-full max-w-md mx-auto shadow-2xl shadow-primary/10 border-primary/20">
         <CardHeader className="text-center">
           <Image
-            src="/assets/succ.jpg"
+            src="/assets/succ-.png"
             alt="Logo"
-            width={100}
-            height={100}
-            className="mx-auto rounded-full"
+            width={50}
+            height={50}
+            className="mx-auto"
           />
           <CardTitle className="text-3xl font-bold font-headline text-accent">
             Rollup Roulette
