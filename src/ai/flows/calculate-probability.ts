@@ -25,6 +25,21 @@ export async function calculateProbability(input: CalculateProbabilityInput): Pr
   return calculateProbabilityFlow(input);
 }
 
+const prompt = ai.definePrompt({
+  name: 'tweetAnalysisPrompt',
+  input: { schema: CalculateProbabilityInputSchema },
+  output: { schema: CalculateProbabilityOutputSchema },
+  prompt: `You are a sentiment analyst. A user with the Twitter handle @{{twitterUsername}} wants to know their probability of getting the '{{role}}' role.
+
+  Analyze their chances based on their hypothetical tweet history.
+
+  If they have ever tweeted the word "succinct", their probability is very high (between 85% and 90%).
+  Otherwise, their probability is still good, but lower (between 70% and 80%).
+  
+  Please provide a probability percentage between 70 and 90.`,
+});
+
+
 const calculateProbabilityFlow = ai.defineFlow(
   {
     name: 'calculateProbabilityFlow',
@@ -32,8 +47,7 @@ const calculateProbabilityFlow = ai.defineFlow(
     outputSchema: CalculateProbabilityOutputSchema,
   },
   async input => {
-    // Generate a random integer between 70 and 90.
-    const probability = Math.floor(Math.random() * (90 - 70 + 1)) + 70;
-    return { probability };
+    const { output } = await prompt(input);
+    return output!;
   }
 );
